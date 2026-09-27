@@ -1,0 +1,31 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/CodeReviewAgent.Api/Dockerfile
+    container_name: codereviewagent-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      GitHub__Token: ${GITHUB_TOKEN:-}
+      AzureOpenAI__Endpoint: ${AZURE_OPENAI_ENDPOINT:-}
+      AzureOpenAI__ApiKey: ${AZURE_OPENAI_API_KEY:-}
+      AzureOpenAI__DeploymentName: ${AZURE_OPENAI_DEPLOYMENT:-gpt-4o}
+      Cors__AllowedOrigins__0: http://localhost:8080
+    ports:
+      - "5080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: src/web/Dockerfile
+    container_name: codereviewagent-web
+    ports:
+      - "8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
