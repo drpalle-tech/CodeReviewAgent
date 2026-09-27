@@ -150,3 +150,9 @@ pull request is missing or private, `403` when the anonymous GitHub rate limit i
 - Reviews are held in memory and lost on restart (last 50 retained).
 - Posting review comments back to the pull request is not enabled, since it requires a
   write-scoped token.
+
+##Screenshots
+
+<img width="1581" height="736" alt="image" src="https://github.com/user-attachments/assets/4e8c1e35-1049-45dc-b57b-032dd998292d" />
+
+<img width="1255" height="986" alt="image" src="https://github.com/user-attachments/assets/e138051b-176d-475f-84e9-271f2f9ae070" />
